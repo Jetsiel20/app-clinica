@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Pacientes Registrados{% endblock %}
+
+{% block contenido %}
+<div class="card shadow-sm mb-4 mt-5 mx-auto" style="max-width: 900px;">
+    <div class="card-header bg-primary text-white text-center py-3">
+        <h2 class="card-title h4 mb-0">Listado de Pacientes Registrados</h2>
+    </div>
+    <div class="card-body p-4">
+        {% if pacientes %}
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Cédula</th>
+                            <th scope="col">Fecha de Nacimiento</th>
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for paciente in pacientes %}
+                            <tr>
+                                <td>{{ paciente.nombre }}</td>
+                                <td>{{ paciente.cedula }}</td>
+                                <td>{{ paciente.fecha_nacimiento }}</td>
+                                <td class="text-center">
+                                    <!-- Botón para Modificar Paciente -->
+                                    <a href="{{ url_for('modificar_paciente', cedula=paciente.cedula) }}" class="btn btn-warning btn-sm me-2" title="Modificar Paciente">
+                                        <i class="bi bi-pencil-square"></i> Modificar
+                                    </a>
+                                    <!-- Botón para Eliminar Paciente (usando un formulario para POST) -->
+                                    <form action="{{ url_for('eliminar_paciente', cedula=paciente.cedula) }}" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Eliminar Paciente" onclick="return confirm('¿Estás seguro de que quieres eliminar a {{ paciente.nombre }}?');">
+                                            <i class="bi bi-trash-fill"></i> Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center" role="alert">
+                No hay pacientes registrados.
+            </div>
+        {% endif %}
+        
+        <div class="mt-4 text-center">
+            <a href="{{ url_for('registrar') }}" class="btn btn-success btn-lg">
+                <i class="bi bi-person-plus-fill me-2"></i> Registrar Nuevo Paciente
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

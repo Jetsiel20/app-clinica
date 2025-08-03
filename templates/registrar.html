@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+
+{% block titulo %}Registrar Paciente{% endblock %}
+
+{% block contenido %}
+<div class="card shadow-sm mb-4 mt-5 mx-auto" style="max-width: 500px;">
+    <div class="card-header bg-success text-white text-center py-3">
+        <h2 class="card-title h4 mb-0">Registrar Nuevo Paciente</h2>
+    </div>
+    <div class="card-body p-4">
+        <form method="POST" action="/registrar">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required placeholder="Ej: Juan Pérez">
+            </div>
+            <div class="mb-3">
+                <label for="cedula" class="form-label">Cédula</label>
+                <input type="text" class="form-control" id="cedula" name="cedula" required placeholder="Ej: 1234567890">
+            </div>
+            <div class="mb-3">
+                <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
+                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+            </div>
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-success btn-lg">
+                    <i class="bi bi-person-plus-fill me-2"></i> Registrar Paciente
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

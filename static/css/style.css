@@ -1,0 +1,22 @@
+body {
+  background-image: url("../imagenes/img-fondo.jpg"); /* Asegúrate que esta ruta sea correcta */
+  background-size: contain; /* Muestra la imagen completa */
+  background-repeat: no-repeat;
+  background-position: center center;
+  min-height: 130vh;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(49, 47, 47, 0.18); /* Más claro */
+  z-index: 0;
+  pointer-events: none;
+}
+
+.container, .navbar {
+  position: relative;
+  z-index: 1;
+}

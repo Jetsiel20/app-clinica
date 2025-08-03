@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Modificar Paciente{% endblock %}
+
+{% block contenido %}
+<div class="card shadow-sm mb-4 mt-5 mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-warning text-white text-center py-3">
+        <h2 class="card-title h4 mb-0">Modificar Datos del Paciente</h2>
+    </div>
+    <div class="card-body p-4">
+        <form method="POST" action="{{ url_for('modificar_paciente', cedula=paciente.cedula) }}">
+            <!-- Campo oculto para enviar la cédula original del paciente -->
+            <input type="hidden" name="cedula_original" value="{{ paciente.cedula }}">
+
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ paciente.nombre }}" required placeholder="Ej: Juan Pérez">
+            </div>
+            <div class="mb-3">
+                <label for="cedula" class="form-label">Cédula</label>
+                <!-- La cédula podría ser de solo lectura o editable con validación adicional -->
+                <input type="text" class="form-control" id="cedula" name="cedula" value="{{ paciente.cedula }}" required placeholder="Ej: 1234567890">
+            </div>
+            <div class="mb-3">
+                <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
+                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ paciente.fecha_nacimiento }}" required>
+            </div>
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-warning btn-lg">
+                    <i class="bi bi-save-fill me-2"></i> Guardar Cambios
+                </button>
+                <a href="{{ url_for('pacientes_registrados') }}" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-arrow-left-circle-fill me-2"></i> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

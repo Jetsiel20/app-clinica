@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Agendar Cita{% endblock %}
+
+{% block contenido %}
+<div class="card shadow-sm mb-4 mt-5 mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-primary text-white text-center py-3">
+        <h2 class="card-title h4 mb-0">Agendar Nueva Cita</h2>
+    </div>
+    <div class="card-body p-4">
+        <form method="POST" action="/citas">
+            <div class="mb-3">
+                <label for="paciente_cedula" class="form-label">Paciente</label>
+                <select class="form-select" id="paciente_cedula" name="paciente_cedula" required>
+                    <option value="" disabled selected>Selecciona un paciente</option>
+                    {% for paciente in pacientes %}
+                        <option value="{{ paciente.cedula }}">{{ paciente.nombre }} ({{ paciente.cedula }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="fecha_cita" class="form-label">Fecha y Hora de la Cita</label>
+                <input type="datetime-local" class="form-control" id="fecha_cita" name="fecha_cita" required>
+            </div>
+            <div class="mb-3">
+                <label for="motivo" class="form-label">Motivo de la Cita</label>
+                <input type="text" class="form-control" id="motivo" name="motivo" required placeholder="Ej: Consulta de rutina, Control, etc.">
+            </div>
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-calendar-plus-fill me-2"></i> Agendar Cita
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm mt-5 mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-info text-white text-center py-3">
+        <h3 class="card-title h4 mb-0">Citas Agendadas</h3>
+    </div>
+    <div class="card-body p-4">
+        {% if citas %}
+            <ul class="list-group list-group-flush">
+                {% for cita in citas %}
+                    <li class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                        <div>
+                            <strong class="text-primary">Paciente:</strong> {{ cita.paciente_cedula }} <br class="d-md-none">
+                            <strong class="text-primary">Fecha:</strong> {{ cita.fecha_cita }} <br class="d-md-none">
+                            <strong class="text-primary">Motivo:</strong> {{ cita.motivo }}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="alert alert-info text-center mt-3" role="alert">
+                No hay citas agendadas.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

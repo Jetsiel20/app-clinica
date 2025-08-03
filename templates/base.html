@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}{% endblock %} - App de Pacientes</title>
+    <!-- Incluye Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Incluye Bootstrap Icons (para los íconos) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Enlace a tu archivo CSS personalizado (si lo tienes) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Barra de navegación de Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">📋 Pacientes</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/registrar">Registrar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/citas">Agendar Cita</a></li>
+                    <!-- Enlace actualizado para "Gestionar Pacientes" -->
+                    <li class="nav-item"><a class="nav-link" href="/pacientes_registrados">Gestionar Pacientes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección de bienvenida global solo con texto -->
+    <div class="container mt-4 text-center">
+        <!-- Mensaje de bienvenida como h3 -->
+        <h3 class="text-primary mb-4">Bienvenido a la Clínica</h3>
+    </div>
+
+    <!-- Contenido principal de la aplicación -->
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block contenido %}{% endblock %} 
+    </div>
+
+    <!-- Pie de página (opcional) -->
+    <footer class="bg-dark text-white text-center p-4 mt-5">
+        <p>&copy; 2025 App Clínica. Todos los derechos reservados.</p>
+        <div class="mt-3 pt-2 border-top border-secondary">
+            <p class="small text-uppercase text-muted mb-0">
+                <span class="fw-bold text-info"> SoFt Desarrollado Por   Santos R.B.</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Incluye Bootstrap JS (Bundle con Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
