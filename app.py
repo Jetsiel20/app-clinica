@@ -9,7 +9,7 @@ app = Flask(__name__)
 # --- Configuración de la Base de Datos SQLite ---
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(app.instance_path, 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'tu_clave_secreta_aqui'
+app.secret_key = 'os.urandom(24).hex() '
 
 db = SQLAlchemy(app)
 
